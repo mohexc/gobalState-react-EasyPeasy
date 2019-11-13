@@ -1,12 +1,14 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
+import { useStoreState, useStoreActions } from 'easy-peasy'
 import TodoItem from './todoItem';
 
 const Todos = () => {
-  const todos = [
-    { id: 1, title: 'Take out trash', completed: true },
-    { id: 2, title: 'Pickup kids from school', completed: false },
-    { id: 3, title: 'Dinner with boss', completed: true },
-  ]
+  const todos = useStoreState(state => state.todos)
+  const fetchTodos = useStoreActions(actions => actions.fetchTodos)
+  useEffect(() => {
+    fetchTodos()
+
+  }, [fetchTodos])
 
   return (
     <Fragment>
